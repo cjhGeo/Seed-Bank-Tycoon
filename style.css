@@ -1,0 +1,9 @@
+#tutorialImg {
+    box-sizing: border-box;
+    width: 90vw;
+    height: 90vh;
+}
+
+#tutorialContainer {
+    text-align: center;
+}
