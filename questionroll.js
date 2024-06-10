@@ -22,7 +22,4 @@ function questioning(){
     // the text of the question div is the text of the question's question section
     optionsget.innerHTML = "";
     // i'm a bit stuck
-    
-
-
 }
