@@ -10,5 +10,14 @@ const questionget = document.getElementById("question");
 const optionsget = document.getElementById("options");
 const nextget = document.getElementById("next");
 
-let queston = 0
-let score = 0
+let queston = 0;
+let score = 0;
+
+function questioning(){
+    const question = quiz[queston];
+    questionget.innerText = question.question;
+    optionsget.innerHTML = "";
+    
+
+
+}
