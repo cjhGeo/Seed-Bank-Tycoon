@@ -9,3 +9,6 @@ const quiz = [
 const questionget = document.getElementById("question");
 const optionsget = document.getElementById("options");
 const nextget = document.getElementById("next");
+
+let queston = 0
+let score = 0
