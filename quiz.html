@@ -3,22 +3,26 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="quiz.css" />
 		<title>Document</title>
 	</head>
 	<body>
-		<div id="quiz">
-			<div id="question"></div>
-			<form action="">
-				<div id="options">
-					<label for="optn1"><input type="radio" name="qnOptn" id="optn1" value="" /> Option1</label>
-					<label for="optn2"><input type="radio" name="qnOptn" id="optn2" value="" /> Option2</label>
-					<label for="optn3"><input type="radio" name="qnOptn" id="optn3" value="" /> option3</label>
-					<label for="optn4"><input type="radio" name="qnOptn" id="optn4" value="" /> Option4</label>
-				</div>
-				<button id="next">Next</button>
-			</form>
+		<div class="container">
+			<div id="question-ctn" class="hide">
+				<div id="question">question</div>
+			<div id="options" class="hide grid">
+				<div class="button">1</div>
+				<div class="button">2</div>
+				<div class="button">3</div>
+				<div class="button">4</div>
+			</div>
+			</div>
+			<div class="control-ctn">
+				<div id="start-btn" class="btn hide startbtn"></div>
+				<div id="next-btn" class="btn nextbtn hide"></div>
+				<div id="submit-btn" class="btn submitbtn hide"></div>
+			</div>
 		</div>
-		<script src="questionroll.js"></script>
+		<script src="quiz.css"></script>
 	</body>
 </html>
