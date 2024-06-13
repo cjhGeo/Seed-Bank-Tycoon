@@ -15,3 +15,7 @@ body{
     padding: 10px
     background-color blue;
 }
+
+.hide{
+    opacity: 0%;
+}
