@@ -5,11 +5,25 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 	</head>
-	<body></body>
+	<body>
+		index.html
+	</body>
 	<script>
-		// if user has not played before, redirect to tutorial & quiz
-		window.location.href = "tutorial.html";
+		localStorage.setItem("hasVisited", false); // set to always redirect to tutorial & quiz for now
 
-		// else (if user has gone through tutorial before) redirect to game (will create some localStorage variable to check this in the future)
+		// check if first time
+		const redirectUser = async () => {
+			let hasVisited = await JSON.parse(localStorage.getItem("hasVisited")); // JSON.parse because localStorage stores only as string
+
+			if (!hasVisited) {
+				console.log("redirected");
+				window.location.href = "./intro/tutorial.html";
+			} else {
+				// redirect to game
+				return;
+			}
+		};
+
+		redirectUser();
 	</script>
 </html>
