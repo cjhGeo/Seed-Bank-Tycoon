@@ -1,5 +1,5 @@
 let tutorialSlide = 0; // current slide
-let tutorialImg = document.querySelector("#tutorialImg"); // gets the img element
+const tutorialImg = document.querySelector("#tutorialImg"); // gets the img element
 tutorialImg.src = "./media/placeholder0.png"; // set image
 
 // goes to next slide on click

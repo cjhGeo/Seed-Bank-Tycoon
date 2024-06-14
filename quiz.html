@@ -8,17 +8,24 @@
 	</head>
 	<body>
 		<div id="quiz">
-			<div id="question"></div>
 			<form action="">
+				<h1 id="question"></h1>
+				<br />
 				<div id="options">
-					<label for="optn1"><input type="radio" name="qnOptn" id="optn1" value="" /> Option1</label>
-					<label for="optn2"><input type="radio" name="qnOptn" id="optn2" value="" /> Option2</label>
-					<label for="optn3"><input type="radio" name="qnOptn" id="optn3" value="" /> option3</label>
-					<label for="optn4"><input type="radio" name="qnOptn" id="optn4" value="" /> Option4</label>
+					<input type="radio" name="qnOptn" id="o1" value="" onchange="optionSelectHandler(event)" />
+					<label id="o1Label" for="o1"></label>
+					<input type="radio" name="qnOptn" id="o2" value="" onchange="optionSelectHandler(event)" />
+					<label id="o2Label" for="o2"></label>
+					<br />
+					<input type="radio" name="qnOptn" id="o3" value="" onchange="optionSelectHandler(event)" />
+					<label id="o3Label" for="o3"></label>
+					<input type="radio" name="qnOptn" id="o4" value="" onchange="optionSelectHandler(event)" />
+					<label id="o4Label" for="o4"></label>
 				</div>
-				<button id="next">Next</button>
+				<br />
+				<button id="next" onclick="nextBtnClickHandler(event)">Next</button>
 			</form>
 		</div>
-		<script src="questionroll.js"></script>
+		<script src="quiz.js"></script>
 	</body>
 </html>
