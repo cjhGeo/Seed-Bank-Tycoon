@@ -7,15 +7,35 @@
 		<title>Document</title>
 	</head>
 	<body>
-		<div id="seedBank">
-			<span>locker 1: Almonds</span>
-			<br />
-			<span>locker 2: </span>
-			<br />
-			<span>locker 3: </span>
-			<br />
-			<span>locker 10: </span>
-			<br />
+		<div id="currenyContainer">
+			<div>Money: <span id="cash">0</span></div>
+			<div>Next disbursement: <span id="payoutTimer"></span></div>
+		</div>
+		<br />
+		<div id="seedBank" class="tenGrid">
+			<span class="locker" id="locker0">locker 1: locked</span>
+		</div>
+		<br />
+		<button>Upgrades</button>
+		<div id="upgradesMenu">
+			<!-- Unlock seeds -->
+			<div class="upgrades" id="rnd">
+				<img src="./" alt="R&D" />
+				<div>Research & Development</div>
+				<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium qui quas iusto necessitatibus eos minima reiciendis voluptatem fugit assumenda numquam!</div>
+			</div>
+			<!-- More seed storage -->
+			<div class="upgrades" id="capacity">
+				<img src="./" alt="Infrastructure" />
+				<div>Infrastructure</div>
+				<div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis debitis repellat aliquid incidunt et hic atque accusamus, magni ratione cupiditate!</div>
+			</div>
+			<!-- More offline earnings -->
+			<div class="upgrades" id="revenue">
+				<img src="./" alt="Some solar panel or smth" />
+				<div>Passive Energy</div>
+				<div>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis quos maxime explicabo dolores a vitae voluptates tenetur nisi beatae voluptate?</div>
+			</div>
 		</div>
 	</body>
 	<script src="seedBank.js"></script>

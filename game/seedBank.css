@@ -1,0 +1,14 @@
+#upgradesMenu {
+    /* display: none; */
+}
+
+.tenGrid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    width: 75vw;
+}
+
+.locker {
+    padding: 10px;
+}
