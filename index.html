@@ -12,8 +12,8 @@
 		localStorage.setItem("hasVisited", false); // set to always redirect to tutorial & quiz for now
 
 		// check if first time
-		const redirectUser = async () => {
-			let hasVisited = await JSON.parse(localStorage.getItem("hasVisited")); // JSON.parse because localStorage stores only as string
+		const redirectUser = () => {
+			let hasVisited = JSON.parse(localStorage.getItem("hasVisited")); // JSON.parse because localStorage stores only as string
 
 			if (!hasVisited) {
 				console.log("redirected");
