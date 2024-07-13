@@ -2,7 +2,6 @@ const DUMMY_PLANTS = [{"commonName":"Common nettle","scientificName":"Urtica dio
 
 
 const plantCap = 100;
-const specialPlants = [72, 3, 29, 87, 90, 33, 57, 62, 78, 81];
 const dropRates = {
     "newPlant": 0.7,
     "specialPlant": 0.1
@@ -12,12 +11,31 @@ const setUpGame = () => {
     for (let i = 1; i < plantCap; i++) {
         let anchor = document.querySelector("#seedBank");
         let newType = document.querySelector("#locker0").cloneNode(true);
-        newType.innerHTML = `locker ${i + 1}: locked`;
+        newType.innerHTML = `locker ${i + 1}: ??? (${0})`;
         newType.class = "locker";
         newType.id = "locker" + String(i);
         anchor.appendChild(newType);
     }
 }
+
+const shuffle = array => {
+    let currentIndex = array.length;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+
+        // Pick a remaining element...
+        let randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+    }
+    
+    return array;
+}
+
 
 let playerShit;
 
@@ -34,20 +52,55 @@ if (false && localStorage.getItem("hasVisited")) {
         "plants": {
             "all": DUMMY_PLANTS,
             "unlocked": [],
-            "locked": [...Array(100).keys()]
+            "locked": {
+                "common": shuffle([...Array(90).keys()]),
+                "special": shuffle([90, 91, 92, 93, 94, 95, 96, 97, 98, 99])
+            }
         }
     }
 }
 setUpGame();
 
+const updateSeedBank = () => {
+    for (const i of playerShit.plants.unlocked) {
+        console.log((playerShit.plants.all)[i].inv);
+        document.querySelector(`#locker${i}`).innerHTML = `locker ${i + 1}: ${(playerShit.plants.all)[i].commonName} (${(playerShit.plants.all)[i].inv})`;
+    }
+}
 
-
+// pop() not working??
 const fieldWork = () => {
-    if (Math.random() < dropRates.newPlant) {
-        if (Math.random() < dropRates.specialPlant) {
-            while (true) {
-                let randomPlant = 
+    const fieldWorkYield = Math.floor((Math.random() * (4 - 1)) + 1); // will return a number from 1 to 3 (how many type of bundles of seeds player will get)
+    console.log(fieldWorkYield);
+    let randomPlant;
+
+    const repeatPlant = () => {
+        randomPlant = playerShit.plants.unlocked[Math.floor((Math.random() * (playerShit.plants.unlocked).length))];
+        playerShit.plants.all[randomPlant].inv += (Math.floor((Math.random() * (6 - 3)) + 3)); // bundle of 3-5 seeds
+    }
+    for (let i = 0; i < fieldWorkYield; i++) {
+        // if player has nothing unlocked, or hit the chances to get new plant
+        if (((playerShit.plants.unlocked).length < 100 && Math.random() < dropRates.newPlant) || (playerShit.plants.unlocked).length == 0) {
+            // if the player still has locked special plants and hit the chance
+            if ((playerShit.plants.locked.special).length > 0 && Math.random() < dropRates.specialPlant) {
+                randomPlant = (playerShit.plants.locked.special).pop(); // get a plant index from the preshuffled array (since its already been shuffled, its basically random)
+                (playerShit.plants.unlocked).push(randomPlant); // add it to the array of plants the player has now unlocked
+                playerShit.plants.all[randomPlant].inv += Math.floor((Math.random() * (6 - 3)) + 3); // bundle of 3-5 seeds
+            
+            // else if the player still has locked commons
+            } else if ((playerShit.plants.locked.common).length > 0) {
+                randomPlant = (playerShit.plants.locked.common).pop();
+                (playerShit.plants.unlocked).push(randomPlant);
+                playerShit.plants.all[randomPlant].inv += Math.floor((Math.random() * (6 - 3)) + 3); // bundle of 3-5 seeds
+
+            // else just give a repeated plant
+            } else {
+                repeatPlant();
             }
+        } else {
+            repeatPlant();
         }
     }
+    
+    updateSeedBank();
 }
