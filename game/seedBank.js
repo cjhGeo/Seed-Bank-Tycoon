@@ -106,18 +106,43 @@ const fieldWork = () => {
 }
 function NextDisbursement() {
     let money = document.getElementsById("cash").innerHTML
-    function addhowmuch() {
-        let moneyin = 1000 * playerShit.plants.unlocked.length;
-        document.getElementsById("payoutTimer") = moneyin
-        
+    let moneyin = 1000 * playerShit.plants.unlocked.length;
+    document.getElementsById("payoutTimer") = moneyin       
+    Passiveenergy = document.getElementById("pelevel")
     const payout = true;
     while (payout == true){
-        setTimeout(money = money + moneyin, 60000)
+        setTimeout(money = (money + moneyin)*(Passiveenergy*1.2), 60000)
+    }
     }
 
-    }
-    }
 function Costoflockers() {
-    let lockercost = playerShit.plants.unlocked.length ** 4 
+    let lockercost =  playerShit.plants.unlocked.length ** 4
+    // click on the locker or on a seperate button the unlock the next plant?//
 
 }
+function costoflevelingup(upgarde) {
+    if (document.getElementById(upgarde + "level") > 0){
+        let price = (document.getElementById(upgarde + "level"))*25000;
+
+    } else{
+        price = 1000;
+    }
+}
+
+const maxlevel = 100;
+
+while (maxlevel <= 100){
+    costoflevelingup(rnd);
+}
+
+while (maxlevel <= 100){
+    costoflevelingup(pe);
+}
+
+while (maxlevel <= 100){
+    costoflevelingup(infrastructure);
+}
+
+Costoflockers();
+NextDisbursement();
+
