@@ -107,8 +107,8 @@ const fieldWork = () => {
 function NextDisbursement() {
     let money = document.getElementsById("cash").innerHTML
     function addhowmuch() {
-        let unlocked = //how many lockers are currently unlocked;
-        let moneyin = 100 * unlocked * 10 = document.getElementsById("payoutTimer");
+        let moneyin = 1000 * playerShit.plants.unlocked.length;
+        document.getElementsById("payoutTimer") = moneyin
         
     const payout = true;
     while (payout == true){
@@ -117,3 +117,7 @@ function NextDisbursement() {
 
     }
     }
+function Costoflockers() {
+    let lockercost = playerShit.plants.unlocked.length ** 4 
+
+}
