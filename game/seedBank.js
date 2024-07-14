@@ -104,3 +104,16 @@ const fieldWork = () => {
     
     updateSeedBank();
 }
+function NextDisbursement() {
+    let money = document.getElementsById("cash").innerHTML
+    function addhowmuch() {
+        let unlocked = //how many lockers are currently unlocked;
+        let moneyin = 100 * unlocked * 10 = document.getElementsById("payoutTimer");
+        
+    const payout = true;
+    while (payout == true){
+        setTimeout(money = money + moneyin, 60000)
+    }
+
+    }
+    }
