@@ -9,7 +9,7 @@
 	<body>
 		<div id="currenyContainer">
 			<div>Money: <span id="cash">0</span></div>
-			<div>Next disbursement: <span id="payoutTimer"></span></div>
+			<div>Next disbursement: <span id="estimatedPayout"></span></div>
 		</div>
 		<br />
 		<div id="seedBank" class="tenGrid">
@@ -18,6 +18,9 @@
 		<br />
 		<!-- all the buttons shit -->
 		<button id="fieldWorkBtn" onclick="fieldWork()">Field Work</button>
+		<div>cost: 100</div>
+		<br />
+
 		<button>Upgrades</button>
 		<br />
 		<br />
@@ -31,19 +34,29 @@
 			<div class="upgrades" id="rnd">
 				<img src="./" alt="R&D" />
 				<div>Research & Development</div>
+				<div id="rndLvl">level: 1</div>
 				<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium qui quas iusto necessitatibus eos minima reiciendis voluptatem fugit assumenda numquam!</div>
+				<button id="rndBtn" onclick="levelUp('rnd')">Upgrade</button>
+				<div id="rndCost">cost: 1000</div>
 			</div>
 			<!-- More seed storage -->
 			<div class="upgrades" id="capacity">
 				<img src="./" alt="Infrastructure" />
 				<div>Infrastructure</div>
+				<div id="capacityLvl">level: 1</div>
 				<div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis debitis repellat aliquid incidunt et hic atque accusamus, magni ratione cupiditate!</div>
+				<button id="capacityBtn" onclick="levelUp('capacity')">Upgrade</button>
+				<div id="capacityCost">level: 1000</div>
 			</div>
 			<!-- More offline earnings -->
 			<div class="upgrades" id="revenue">
 				<img src="./" alt="Some solar panel or smth" />
 				<div>Passive Energy</div>
+				<div id="revenueLvl">level: 1</div>
+				<br />
 				<div>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis quos maxime explicabo dolores a vitae voluptates tenetur nisi beatae voluptate?</div>
+				<button id="revenueBtn" onclick="levelUp('revenue')">Upgrade</button>
+				<div id="revenueCost">level: 1000</div>
 			</div>
 		</div>
 	</body>

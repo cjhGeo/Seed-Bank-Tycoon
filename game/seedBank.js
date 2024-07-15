@@ -43,11 +43,20 @@ if (false && localStorage.getItem("hasVisited")) {
     playerShit = JSON.parse(localStorage.getItem("hasVisited"));
 } else {
     playerShit = {
-        "cash": 0,
+        "cash": 1000,
         "upgrades": {
-            "rnd": 0,
-            "capacity": 0,
-            "revenue": 0
+            "rnd": {
+                lvl: 1,
+                cost: 1000
+            },
+            "capacity": {
+                lvl: 1,
+                cost: 1000
+            },
+            "revenue": {
+                lvl: 1,
+                cost: 1000
+            }
         },
         "plants": {
             "all": DUMMY_PLANTS,
@@ -61,17 +70,25 @@ if (false && localStorage.getItem("hasVisited")) {
 }
 setUpGame();
 
-const updateSeedBank = () => {
+const updateUI = () => {
+    //update seedbank
     for (const i of playerShit.plants.unlocked) {
-        console.log((playerShit.plants.all)[i].inv);
         document.querySelector(`#locker${i}`).innerHTML = `locker ${i + 1}: ${(playerShit.plants.all)[i].commonName} (${(playerShit.plants.all)[i].inv})`;
+    }
+
+    //update cash
+    document.querySelector("#cash").innerHTML = playerShit.cash;
+    
+    //update upgrades
+    for (const i of ["rnd", "capacity", "revenue"]) {
+        document.querySelector(`#${i}Lvl`).innerHTML = `level: ${((playerShit.upgrades)[i]).lvl}`
+        document.querySelector(`#${i}Cost`).innerHTML = `cost: ${((playerShit.upgrades)[i]).cost}`
     }
 }
 
 // pop() not working??
 const fieldWork = () => {
     const fieldWorkYield = Math.floor((Math.random() * (4 - 1)) + 1); // will return a number from 1 to 3 (how many type of bundles of seeds player will get)
-    console.log(fieldWorkYield);
     let randomPlant;
 
     const repeatPlant = () => {
@@ -102,47 +119,37 @@ const fieldWork = () => {
         }
     }
     
-    updateSeedBank();
+    updateUI();
 }
-function NextDisbursement() {
-    let money = document.getElementsById("cash").innerHTML
-    let moneyin = 1000 * playerShit.plants.unlocked.length;
-    document.getElementsById("payoutTimer") = moneyin       
-    Passiveenergy = document.getElementById("pelevel")
-    const payout = true;
-    while (payout == true){
-        setTimeout(money = (money + moneyin)*(Passiveenergy*1.2), 60000)
+
+
+function nextDisbursement() {
+    let baseDisbursement = (1000 * playerShit.plants.unlocked.length || 200);
+    let revenue = playerShit.upgrades.revenue.lvl;
+
+    playerShit.cash += Math.floor(baseDisbursement + baseDisbursement*(0.1*(revenue)));
+    console.log(Math.floor(baseDisbursement*(revenue*1.2)))
+
+    updateUI();
+}
+setInterval(nextDisbursement, 500);
+
+// Idt need this, cuz the lockers will 
+// function Costoflockers() {
+//     let lockercost =  playerShit.plants.unlocked.length ** 4
+//     // click on the locker or on a seperate button the unlock the next plant?//
+
+// }
+
+function levelUp(upgrade) {
+    const upgradeCost = ((playerShit.upgrades)[upgrade]).cost
+
+    if (playerShit.cash >= upgradeCost){
+        playerShit.cash -= upgradeCost;
+        (playerShit.upgrades)[upgrade].lvl += 1;
+        ((playerShit.upgrades)[upgrade]).cost = 1000*(((playerShit.upgrades[upgrade]).lvl)**2);
     }
-    }
 
-function Costoflockers() {
-    let lockercost =  playerShit.plants.unlocked.length ** 4
-    // click on the locker or on a seperate button the unlock the next plant?//
-
+    updateUI();
 }
-function costoflevelingup(upgarde) {
-    if (document.getElementById(upgarde + "level") > 0){
-        let price = (document.getElementById(upgarde + "level"))*25000;
-
-    } else{
-        price = 1000;
-    }
-}
-
-const maxlevel = 100;
-
-while (maxlevel <= 100){
-    costoflevelingup(rnd);
-}
-
-while (maxlevel <= 100){
-    costoflevelingup(pe);
-}
-
-while (maxlevel <= 100){
-    costoflevelingup(infrastructure);
-}
-
-Costoflockers();
-NextDisbursement();
 
