@@ -57,7 +57,7 @@ const nextBtnClickHandler = event => {
     if (!quiz[currQn]) {
         alert("Your score is: " + String(score)); // Make better final score popup (afterwards, redirect to actual game)
         localStorage.setItem("hasVisited", true);
-        window.location = `${window.location.hostname}/game/seedBank.html`;
+        window.location = `./../`;
     }
 
     // change html elements to next qn and options
