@@ -1,14 +1,147 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    /* position: relative; */
+    font-family: Open Sans, Arial, sans-serif;
+    /* font-size: 62.5% !important; */
+    background-image: url("../media/wallPaper.png");
+    background-size: 300px;
+    display: grid;
+    grid-template-columns: 70vw 1fr;
+    grid-template-areas:
+    "seedBanks eec";
+    gap: 30px;
+    height: 100vh;
+    width: 100vw;
+}
+
 #upgradesMenu {
     /* display: none; */
+}
+
+#seedBank {
+    grid-area: seedBank;
+    border-radius: 10px;
 }
 
 .tenGrid {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
-    width: 75vw;
+    width: 100%;
+    height: 95vh;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("../media/cabinet.png");
+    padding: 3.5%;
+    padding-bottom: 5%;
+    /* padding-top: 3.3%; */
+    gap: 1.8%;
+    /* justify-self: center;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    justify-items: center; */
 }
 
 .locker {
+    position: relative;
+    /* filter: brightness(30%); */
+    /* z-index: -1; */
+    opacity: 50%;
+}
+
+.lockerImg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.details {
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    left: calc(100% + 10px);
+    display: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: max-content;
     padding: 10px;
+    color: white;
+    border: 2px solid black;
+}
+
+.plantImg {
+    max-height: 120px;
+    /* display: block; */
+}
+
+
+#capacityContainer {
+    font-size: 1rem;
+    color: #fafafa;
+    margin: -23px 0 0 10px;
+}
+
+
+
+#everythingElseContainer {
+    grid-area: eec;
+    width: 100%;
+    height: 100%;
+    /* display: flex; */
+}
+
+
+
+#quiz {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.6);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    font-size: 62.5%;
+    color: #1c522a;
+}
+
+#quiz form {
+    padding: 2% 2%;
+    border-radius: 5px;
+    background-color: #fafafa;
+}
+
+#question {
+    padding: 10px;
+}
+
+#options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
+    justify-self: center;
+}
+
+.option {
+    height: 75px;
+    background-color: #ffce00;
+    border: none;
+    border-radius: 5px;
+    color: #1c522a;
+    font-size: 0.9rem;
+    font-weight: 600;
+    -webkit-filter: brightness(100%);
+}
+
+.option:hover {
+    filter: brightness(92%);
+    transition: all 0.15s ease;
 }
