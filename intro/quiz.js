@@ -58,7 +58,6 @@ const nextBtnClickHandler = event => {
         alert("Your score is: " + String(score)); // Make better final score popup (afterwards, redirect to actual game)
         localStorage.setItem("hasVisited", true);
         window.location.href = "../game/seedBank.html";
-        return;
     }
 
     // change html elements to next qn and options
