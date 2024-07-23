@@ -10,13 +10,30 @@ const dropRates = {
     "specialPlant": 0.1
 }
 
+// for show detail when hovering on lockers
 const onLockerMouseEnter = lockerNo => {
-    document.querySelector(`#details${lockerNo}`).style.display = "flex";
+    document.querySelector(`#details${lockerNo}`).style.display = "block";
 }
 
 const onLockerMouseLeave = lockerNo => {
     document.querySelector(`#details${lockerNo}`).style.display = "none";
 }
+
+
+// exit fieldworkyield display when clicked anywhere
+const exitFieldWorkYieldDisp = () => {
+    document.querySelector("#fieldWorkDispContainer").style.display = "none";
+}
+
+// open/close upgrades menu
+const openUpgradesMenu = () => {
+    document.querySelector("#upgradesMenuContainer").style.display = "flex";
+}
+
+const closeUpgradesMenu = () => {
+    document.querySelector("#upgradesMenuContainer").style.display = "none";
+}
+
 
 const setUpGame = () => {
     const anchor = document.querySelector("#seedBank");
@@ -27,12 +44,12 @@ const setUpGame = () => {
             <div class="locker" id="locker${i}">
 				<img class="lockerImg" src="../media/locker.png" />
 				<div class="details" id="details${i}">
-					Plant Name: ???
-					<br />
-					Quantity: 0
-					<br />
-                    Sample:
-                    <div><img class="plantImg" id="plantImg${i}" src="./" alt="" /></div>
+                    <div>
+                        Plant Name: ???
+                        <br />
+                        Quantity: 0
+                    </div>
+                    <span><img class="plantImg" id="plantImg${i}" src="./" alt="" /></span>
 				</div>
 			</div>`;
 
@@ -118,12 +135,12 @@ const updateUI = () => {
         locker.style.opacity = "100%";
 
         document.querySelector(`#details${i}`).innerHTML = `
-            Plant Name: ${((playerShit.plants.all)[i]).commonName}
-			<br />
-            Quantity: ${((playerShit.plants.all)[i]).inv}
-            <br />
-            Sample:
-            <div><img class="plantImg" id="plantImg${i}" src="${((playerShit.plants.all)[i]).imgSrc}" alt="" /></div>`;
+            <div>
+                Plant Name: ${((playerShit.plants.all)[i]).commonName}
+                <br />
+                Quantity: ${((playerShit.plants.all)[i]).inv}
+            </div>
+            <span><img class="plantImg" id="plantImg${i}" src="${((playerShit.plants.all)[i]).imgSrc}" alt="" /></span>`;
     }
 
     //update cash
@@ -137,7 +154,7 @@ const updateUI = () => {
 
     document.querySelector("#capacityDisp").innerHTML = `${(playerShit.plants.all).reduce((accumulator, currentValue) => accumulator + currentValue.inv, 0)} / ${playerShit.upgrades.capacity.lvl * 100}`
 
-    document.querySelector("#fieldWorkCost").innerHTML = `cost: ${100 * (playerShit.fieldWorks ** 3)}`
+    document.querySelector("#fieldWorkCost").innerHTML = `Field Work <br /> cost: ${100 * (playerShit.fieldWorks ** 3)}`
 }
 
 const onOptionSelect = event => {
@@ -156,6 +173,9 @@ const onOptionSelect = event => {
     document.querySelector("#options").innerHTML = "";
 }
 
+
+
+// following 3 functions interact with dom
 const fieldWorkQuiz = () => {
     let randomNo = Math.floor(Math.random() * (qnBank.length));
     let qn = qnBank[randomNo];
@@ -177,6 +197,27 @@ const fieldWorkQuiz = () => {
     document.querySelector("#quiz").style.display = "flex";
 }
 
+const fieldWorkDisplay = yieldArr => {
+    const fieldWorkDisp = document.querySelector("#fieldWorkDisp");
+    fieldWorkDisp.innerHTML = "";
+
+    for (const i of yieldArr) {
+        fieldWorkDisp.innerHTML += `
+            <div>
+                <div><img src="${((playerShit.plants.all)[i.plantNo]).imgSrc}" alt="" /></div>
+                <div>(${i.new})</div>
+                <div>Plant Name: ${((playerShit.plants.all)[i.plantNo]).commonName}</div>
+                <div>x${i.quantity}</div>
+            </div>`;
+    }
+
+    fieldWorkDisp.style.gridTemplateColumns = `repeat(${yieldArr.length}, 1fr)`;
+    document.querySelector("#fieldWorkDispContainer").style.display = "flex";
+}
+
+
+
+
 const fieldWork = () => {
     // check if there's space for more seeds (must have enough space for max possible drops)
     if (((playerShit.upgrades.capacity.lvl * 100) - ((playerShit.plants.all).reduce((accumulator, currentValue) => accumulator + currentValue.inv, 0))) < Math.floor(3 * (5 + (Math.log(playerShit.upgrades.rnd.lvl) / Math.log(1.5))))) {
@@ -197,13 +238,18 @@ const fieldWork = () => {
 
 const rollSeeds = () => {
     playerShit.fieldWorks++;
+    let fieldWorkYieldArr = []
 
     const fieldWorkYield = Math.floor((Math.random() * (4 + Math.log(playerShit.upgrades.rnd.lvl) - 1)) + 1); // will return a number from 1 to 3 (how many type of bundles of seeds player will get)
     let randomPlant;
+    let quantity;
 
     const repeatPlant = () => {
         randomPlant = playerShit.plants.unlocked[Math.floor((Math.random() * (playerShit.plants.unlocked).length))];
-        playerShit.plants.all[randomPlant].inv += (Math.floor((Math.random() * ((6 + Number(Math.log(playerShit.upgrades.rnd.lvl) / Math.log(1.5))) - 3)) + 3)); // bundle of 3-5 seeds
+        quantity = (Math.floor((Math.random() * ((6 + Number(Math.log(playerShit.upgrades.rnd.lvl) / Math.log(1.5))) - 3)) + 3));
+        playerShit.plants.all[randomPlant].inv += quantity; // bundle of 3-5 seeds
+
+        fieldWorkYieldArr.push({"plantNo": randomPlant, "quantity": quantity, "new": "repeat"});
     }
     for (let i = 0; i < fieldWorkYield; i++) {
         // if player has nothing unlocked, or hit the chances to get new plant
@@ -212,13 +258,21 @@ const rollSeeds = () => {
             if ((playerShit.plants.locked.special).length > 0 && Math.random() < dropRates.specialPlant) {
                 randomPlant = (playerShit.plants.locked.special).pop(); // get a plant index from the preshuffled array (since its already been shuffled, its basically random)
                 (playerShit.plants.unlocked).push(randomPlant); // add it to the array of plants the player has now unlocked
-                playerShit.plants.all[randomPlant].inv += Math.floor((Math.random() * ((6 + Number(Math.log(playerShit.upgrades.rnd.lvl) / Math.log(1.5))) - 3)) + 3); // bundle of 3-5 seeds (default)
+
+                quantity = Math.floor((Math.random() * ((6 + Number(Math.log(playerShit.upgrades.rnd.lvl) / Math.log(1.5))) - 3)) + 3);
+                playerShit.plants.all[randomPlant].inv += quantity; // bundle of 3-5 seeds (default)
+
+                fieldWorkYieldArr.push({"plantNo": randomPlant, "quantity": quantity, "new": "new"});
             
             // else if the player still has locked commons
             } else if ((playerShit.plants.locked.common).length > 0) {
                 randomPlant = (playerShit.plants.locked.common).pop();
                 (playerShit.plants.unlocked).push(randomPlant);
-                playerShit.plants.all[randomPlant].inv += Math.floor((Math.random() * ((6 + Number(Math.log(playerShit.upgrades.rnd.lvl) / Math.log(1.5))) - 3)) + 3); // bundle of 3-5 seeds
+
+                quantity = Math.floor((Math.random() * ((6 + Number(Math.log(playerShit.upgrades.rnd.lvl) / Math.log(1.5))) - 3)) + 3)
+                playerShit.plants.all[randomPlant].inv += quantity; // bundle of 3-5 seeds
+
+                fieldWorkYieldArr.push({"plantNo": randomPlant, "quantity": quantity, "new": "new"});
 
             // else just give a repeated plant
             } else {
@@ -230,11 +284,14 @@ const rollSeeds = () => {
     }
     
     console.log(playerShit.plants.unlocked);
+    fieldWorkDisplay(fieldWorkYieldArr);
     updateUI();
 }
 
 
+let cooldown = 61;
 function nextDisbursement() {
+    cooldown = 61;
     let baseDisbursement = (1000 * playerShit.plants.unlocked.length || 200);
     let revenue = playerShit.upgrades.revenue.lvl;
 
@@ -243,6 +300,10 @@ function nextDisbursement() {
     updateUI();
 }
 setInterval(nextDisbursement, 500);
+setInterval(() => {
+    cooldown -= 1;
+    document.querySelector("#cooldown").innerHTML = cooldown + "s";
+}, 1000);
 
 // Idt need this, cuz the lockers will 
 // function Costoflockers() {

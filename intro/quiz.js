@@ -57,7 +57,7 @@ const nextBtnClickHandler = event => {
     if (!quiz[currQn]) {
         alert("Your score is: " + String(score)); // Make better final score popup (afterwards, redirect to actual game)
         localStorage.setItem("hasVisited", true);
-        window.location.href = "https://cjhgeo.github.io/Seed-Bank-Tycoon/game/seedBank.html";
+        window.location.href = "https://cjhgeo.github.io/Seed-Bank-Tycoon/game/seedBank.html"; //no clue how
     }
 
     // change html elements to next qn and options

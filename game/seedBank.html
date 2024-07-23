@@ -2,7 +2,13 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="viewport"
+			content="height=device-height, 
+						width=device-width, initial-scale=1.0, 
+						minimum-scale=1.0, maximum-scale=1.0, 
+						user-scalable=no, target-densitydpi=device-dpi"
+		/>
 		<link rel="stylesheet" href="seedBank.css" />
 		<title>Document</title>
 	</head>
@@ -27,50 +33,73 @@
 		</div>
 
 		<div id="everythingElseContainer">
-			<div id="currenyContainer">
-				<div>Funds: <span id="cash">1000</span></div>
-				<div>Next disbursement: <span id="estimatedPayout"></span></div>
+			<div id="currencyContainer">
+				<div id="currencybg">
+					<div>Funds: <span id="cash">1000</span></div>
+					<div>Next disbursement in <span id="cooldown"></span></div>
+				</div>
 			</div>
 			<br />
 			<br />
 			<!-- all the buttons shit -->
-			<button id="fieldWorkBtn" onclick="fieldWork()">Field Work</button>
-			<div id="fieldWorkCost">cost: 0</div>
-			<br />
+			<div id="btns">
+				<button id="fieldWorkBtn" onclick="fieldWork()">
+					<div><img src="../media/fieldWork.png" alt="" /></div>
+					<span id="fieldWorkCost">
+						Field Work
+						<br />
+						cost: 0
+					</span>
+				</button>
 
-			<button>Upgrades</button>
-			<br />
-			<br />
+				<button id="upgradesBtn" onclick="openUpgradesMenu()">
+					<div><img src="../media/upgrades.png" alt="" /></div>
+					<span>Upgrades</span>
+				</button>
+			</div>
 
-			<div id="upgradesMenu">
-				<!-- Unlock seeds -->
-				<div class="upgrades" id="rnd">
-					<img src="./" alt="R&D" />
-					<div>Research & Development</div>
-					<div id="rndLvl">level: 1</div>
-					<div>Your R&D Sector is in charge of discovering seeds!</div>
-					<button id="rndBtn" onclick="levelUp('rnd')">Upgrade</button>
-					<div id="rndCost">cost: 1000</div>
+			<div id="fieldWorkDispContainer" onclick="exitFieldWorkYieldDisp()">
+				<div id="fieldWorkDisp"></div>
+			</div>
+
+			<div id="upgradesMenuContainer">
+				<div id="upgradesMenuCloseBtn">
+					<button onclick="closeUpgradesMenu()"><img src="../media/close.png" alt="" /></button>
 				</div>
-				<br />
-				<!-- More seed storage -->
-				<div class="upgrades" id="capacity">
-					<img src="./" alt="Infrastructure" />
-					<div>Infrastructure</div>
-					<div id="capacityLvl">level: 1</div>
-					<div>Your Infrastructure affects how many seeds your Seed Bank can hold!</div>
-					<button id="capacityBtn" onclick="levelUp('capacity')">Upgrade</button>
-					<div id="capacityCost">cost: 1000</div>
-				</div>
-				<br />
-				<!-- More earnings -->
-				<div class="upgrades" id="revenue">
-					<img src="./" alt="Some solar panel or smth" />
-					<div>Passive Energy</div>
-					<div id="revenueLvl">level: 1</div>
-					<div>Your Passive Energy sources reduce the cost of running the Seed Bank, increasing your funds!</div>
-					<button id="revenueBtn" onclick="levelUp('revenue')">Upgrade</button>
-					<div id="revenueCost">cost: 1000</div>
+
+				<div id="upgradesMenu">
+					<!-- Unlock seeds -->
+					<div class="upgrades" id="rnd">
+						<img src="../media/rnd.png" alt="R&D" />
+						<div>R&D</div>
+						<div id="rndLvl">level: 1</div>
+						<div>Your Research and Developement Sector is in charge of discovering seeds!</div>
+						<br />
+						<button id="rndBtn" onclick="levelUp('rnd')">Upgrade</button>
+						<div id="rndCost">cost: 1000</div>
+					</div>
+
+					<!-- More seed storage -->
+					<div class="upgrades" id="capacity">
+						<img src="../media/infrastructure.png" alt="Infrastructure" />
+						<div>Infrastructure</div>
+						<div id="capacityLvl">level: 1</div>
+						<div>Your Infrastructure affects how many seeds your Seed Bank can hold!</div>
+						<br />
+						<button id="capacityBtn" onclick="levelUp('capacity')">Upgrade</button>
+						<div id="capacityCost">cost: 1000</div>
+					</div>
+
+					<!-- More earnings -->
+					<div class="upgrades" id="revenue">
+						<img src="../media/passiveEnergy.png" alt="Some solar panel or smth" />
+						<div>Passive Energy</div>
+						<div id="revenueLvl">level: 1</div>
+						<div>Your Passive Energy sources reduce the cost of running the Seed Bank, increasing your funds!</div>
+						<br />
+						<button id="revenueBtn" onclick="levelUp('revenue')">Upgrade</button>
+						<div id="revenueCost">cost: 1000</div>
+					</div>
 				</div>
 			</div>
 		</div>
