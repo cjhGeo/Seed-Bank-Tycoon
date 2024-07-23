@@ -145,3 +145,10 @@ body {
     filter: brightness(92%);
     transition: all 0.15s ease;
 }
+
+button {
+    font-weight: 700;
+    padding: 3.25px;
+    background-color: #0fe247;
+    border-radius: 227px;
+}
