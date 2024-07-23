@@ -90,8 +90,8 @@ const shuffle = array => {
 
 let playerShit;
 
-if (false && localStorage.getItem("hasVisited")) {
-    playerShit = JSON.parse(localStorage.getItem("hasVisited"));
+if (localStorage.getItem("playerData")) {
+    playerShit = JSON.parse(localStorage.getItem("playerData"));
 } else {
     playerShit = {
         "cash": 1000,
@@ -155,6 +155,10 @@ const updateUI = () => {
     document.querySelector("#capacityDisp").innerHTML = `${(playerShit.plants.all).reduce((accumulator, currentValue) => accumulator + currentValue.inv, 0)} / ${playerShit.upgrades.capacity.lvl * 100}`
 
     document.querySelector("#fieldWorkCost").innerHTML = `Field Work <br /> cost: ${100 * (playerShit.fieldWorks ** 3)}`
+
+    // ok its not rly ui but like same thing
+    const playerData = JSON.stringify(playerShit);
+    localStorage.setItem("playerData", playerData);
 }
 
 const onOptionSelect = event => {
