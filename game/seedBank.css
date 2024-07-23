@@ -221,6 +221,7 @@ body {
 
 #question {
     padding: 10px;
+    width: 800px;
 }
 
 #options {
@@ -239,12 +240,54 @@ body {
     color: #1c522a;
     font-size: 0.9rem;
     font-weight: 600;
+    padding: 15px;
     -webkit-filter: brightness(100%);
 }
 
 .option:hover {
     filter: brightness(92%);
     transition: all 0.15s ease;
+    cursor: pointer;
+}
+
+#quizFailContainer {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.6);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1c522a;
+}
+
+#quizFail {
+    padding: 2% 2%;
+    border-radius: 5px;
+    background-color: #fafafa;
+}
+
+#quizFail button {
+    background-color: #ffce00;
+    border: none;
+    border-radius: 5px;
+    color: #1c522a;
+    padding: 5px 10px;
+    margin-bottom: 3px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    filter: brightness(100%);
+}
+
+#quizFail button:hover {
+    filter: brightness(85%);
     cursor: pointer;
 }
 
@@ -269,7 +312,7 @@ body {
 #fieldWorkDisp {
     padding: 2% 2%;
     border-radius: 5px;
-    background-color: #fafafa;
+    background-color: #00ff00;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     justify-content: center;
