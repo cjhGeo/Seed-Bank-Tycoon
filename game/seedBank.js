@@ -328,7 +328,7 @@ function nextDisbursement() {
 
     updateUI();
 }
-setInterval(nextDisbursement, 500);
+setInterval(nextDisbursement, 60000);
 setInterval(() => {
     cooldown -= 1;
     document.querySelector("#cooldown").innerHTML = cooldown + "s";
