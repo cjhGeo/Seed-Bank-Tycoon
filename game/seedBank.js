@@ -44,6 +44,43 @@ const closeQuizFail = () => {
     document.querySelector("#quizFailContainer").style.display = "none";
 }
 
+const updateUI = () => {
+    //update seedbank
+
+    for (const i of playerShit.plants.unlocked) {
+        const locker = document.querySelector(`#locker${i}`);
+        locker.addEventListener("mouseenter", () => {onLockerMouseEnter(i)}, false);
+        locker.addEventListener("mouseleave", () => {onLockerMouseLeave(i)}, false);
+        
+        // locker.style.filter = "brightness(100%)";
+        locker.style.opacity = "100%";
+
+        document.querySelector(`#details${i}`).innerHTML = `
+            <div>
+                Plant Name: ${((playerShit.plants.all)[i]).commonName}
+                <br />
+                Quantity: ${((playerShit.plants.all)[i]).inv}
+            </div>
+            <span><img class="plantImg" id="plantImg${i}" src="${((playerShit.plants.all)[i]).imgSrc}" alt="" /></span>`;
+    }
+
+    //update cash
+    document.querySelector("#cash").innerHTML = playerShit.cash;
+    
+    //update upgrades
+    for (const i of ["rnd", "capacity", "revenue"]) {
+        document.querySelector(`#${i}Lvl`).innerHTML = `level: ${((playerShit.upgrades)[i]).lvl}`
+        document.querySelector(`#${i}Cost`).innerHTML = `cost: ${((playerShit.upgrades)[i]).cost}`
+    }
+
+    document.querySelector("#capacityDisp").innerHTML = `${(playerShit.plants.all).reduce((accumulator, currentValue) => accumulator + currentValue.inv, 0)} / ${playerShit.upgrades.capacity.lvl * 100}`
+
+    document.querySelector("#fieldWorkCost").innerHTML = `Field Work <br /> cost: ${100 * (playerShit.fieldWorks ** 3)}`
+
+    // ok its not rly ui but like same thing
+    const playerData = JSON.stringify(playerShit);
+    localStorage.setItem("playerData", playerData);
+}
 
 const setUpGame = () => {
     const anchor = document.querySelector("#seedBank");
@@ -77,6 +114,7 @@ const setUpGame = () => {
         // });
         // anchor.appendChild(newType);
     }
+    updateUI();
 }
 
 const shuffle = array => {
@@ -131,44 +169,6 @@ if (localStorage.getItem("playerData")) {
     }
 }
 setUpGame();
-
-const updateUI = () => {
-    //update seedbank
-
-    for (const i of playerShit.plants.unlocked) {
-        const locker = document.querySelector(`#locker${i}`);
-        locker.addEventListener("mouseenter", () => {onLockerMouseEnter(i)}, false);
-        locker.addEventListener("mouseleave", () => {onLockerMouseLeave(i)}, false);
-        
-        // locker.style.filter = "brightness(100%)";
-        locker.style.opacity = "100%";
-
-        document.querySelector(`#details${i}`).innerHTML = `
-            <div>
-                Plant Name: ${((playerShit.plants.all)[i]).commonName}
-                <br />
-                Quantity: ${((playerShit.plants.all)[i]).inv}
-            </div>
-            <span><img class="plantImg" id="plantImg${i}" src="${((playerShit.plants.all)[i]).imgSrc}" alt="" /></span>`;
-    }
-
-    //update cash
-    document.querySelector("#cash").innerHTML = playerShit.cash;
-    
-    //update upgrades
-    for (const i of ["rnd", "capacity", "revenue"]) {
-        document.querySelector(`#${i}Lvl`).innerHTML = `level: ${((playerShit.upgrades)[i]).lvl}`
-        document.querySelector(`#${i}Cost`).innerHTML = `cost: ${((playerShit.upgrades)[i]).cost}`
-    }
-
-    document.querySelector("#capacityDisp").innerHTML = `${(playerShit.plants.all).reduce((accumulator, currentValue) => accumulator + currentValue.inv, 0)} / ${playerShit.upgrades.capacity.lvl * 100}`
-
-    document.querySelector("#fieldWorkCost").innerHTML = `Field Work <br /> cost: ${100 * (playerShit.fieldWorks ** 3)}`
-
-    // ok its not rly ui but like same thing
-    const playerData = JSON.stringify(playerShit);
-    localStorage.setItem("playerData", playerData);
-}
 
 const onQuizFail = qnNo => {
     document.querySelector("#quizFail").innerHTML = `
