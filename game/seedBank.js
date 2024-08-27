@@ -8,6 +8,7 @@ const qnBank = [
     {"q": "What is the primary focus of the Singapore Botanic Gardens Seed Bank?", "o": ["Conservation, Research & Education", "Tourism and Hospitality", "Amateur Gardening", "Development of Singapore's Economy"], "a": "Conservation, Research & Education"}];
 
 
+    
 const plantCap = 100;
 const dropRates = {
     "newPlant": 0.6,
