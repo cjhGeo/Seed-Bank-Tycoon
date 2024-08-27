@@ -139,7 +139,12 @@ const shuffle = array => {
 let playerShit;
 
 if (localStorage.getItem("playerData")) {
-    playerShit = JSON.parse(localStorage.getItem("playerData"));
+    async function restoreGame() {
+        playerShit = await JSON.parse(localStorage.getItem("playerData"));
+        setUpGame();
+    }
+
+    restoreGame();
 } else {
     playerShit = {
         "cash": 1000,
@@ -167,8 +172,8 @@ if (localStorage.getItem("playerData")) {
             }
         }
     }
+    setUpGame();
 }
-setUpGame();
 
 const onQuizFail = qnNo => {
     document.querySelector("#quizFail").innerHTML = `
